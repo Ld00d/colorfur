@@ -12,7 +12,7 @@ var game = {
     // Run on page load.
     "onload" : function () {
         // Initialize the video.
-        if (!me.video.init(960, 640, {wrapper : "screen", scale : "auto"})) {
+        if (!me.video.init(960, 640, {wrapper : "screen", scale : 1.0, scaleMethod: "flex-width"})) {
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
@@ -40,7 +40,22 @@ var game = {
         // add our player entity in the entity pool
         me.pool.register("mainPlayer", game.PlayerEntity);
 
+        me.pool.register('Start', game.StartEntity);
+        me.pool.register('Finish', game.FinishEntity);
+        me.pool.register('ControlsDisabled', game.ControlsDisabledEntity);
+        me.pool.register('ControlsEnabled', game.ControlsEnabledEntity);
+        me.pool.register('GoodRing', game.GoodRingEntity);
+        me.pool.register('BadRing', game.BadRingEntity);
+
+
         // Start the game.
         me.state.change(me.state.PLAY);
+    },
+    "enableControls" : function() {
+
+        me.input.bindKey(me.input.KEY.SPACE, "jump", true);
+    },
+    "disableControls" : function() {
+        me.input.unbindKey(me.input.KEY.SPACE);
     }
 };

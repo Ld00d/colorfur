@@ -38,6 +38,10 @@ game.HUD.ScoreItem = me.Renderable.extend({
         // call the parent constructor
         // (size does not matter here)
         this._super(me.Renderable, 'init', [x, y, 10, 10]);
+        this.font = new me.Font('Chalkduster', 14, 'black');
+        // this.font = new me.BitmapFont(
+        //     me.loader.getBinary('AndolaLight'),
+        //     me.loader.getImage('AndolaLight'));
 
         // local copy of the global score
         this.score = -1;
@@ -61,6 +65,8 @@ game.HUD.ScoreItem = me.Renderable.extend({
      */
     draw : function (context) {
         // draw it baby !
+        var text = 'Score: ' + game.data.score;
+        this.font.draw (context, text, this.pos.x, this.pos.y);
     }
 
 });
